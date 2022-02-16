@@ -11,15 +11,37 @@ const sinalVerde = () => desligado.src = './img/verde.png'
 const sinalAmarelo = () => desligado.src = './img/amarelo.png'
 const sinalVermelho = () => desligado.src = './img/vermelho.png'
 
-const trocarDeCor = () =>{
-    
+const automaticoVermelho = () => {
+    return desligado.src.includes('vermelho')
+}
+
+const automaticoVerde = () => {
+    return desligado.src.includes('verde')
+}
+
+const trocarDeCor = () => {
+    if (automaticoVermelho()) {
+        sinalVerde()
+    }else if(automaticoVerde()){
+        sinalAmarelo()
+    }else{
+        sinalVermelho()
+    }
 }
 
 const sinalAutomatico = () => {
-    idAutomatico = setInterval(trocarDeCor, 500)
+    if (idAutomatico == null) {
+        idAutomatico = setInterval(trocarDeCor, 1000)
+        automatico.textContent = 'Parar'
+    }else{
+        clearInterval(idAutomatico)
+        idAutomatico = null
+        automatico.textContent = 'Automático'
+    }
+
 }
 
 verde.addEventListener('click', sinalVerde)
-amarelo.addEventListener('click',sinalAmarelo)
+amarelo.addEventListener('click', sinalAmarelo)
 vermelho.addEventListener('click', sinalVermelho)
 automatico.addEventListener('click', sinalAutomatico)
